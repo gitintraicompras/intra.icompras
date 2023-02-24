@@ -193,9 +193,9 @@
 	        	</span>
 	    	</a>
 	        <div class="info-box-content">
-	          <span class="info-box-text">AUDITORIA 2</span>
+	          <span class="info-box-text">AUDITORIA 2.</span>
 	          <span class="info-box-number">
-	          	Reporte de desvió de pedidos
+	          	Reporte de desvió de pedidos.
 	          	<br>
 	          	<small>ICOMPRAS360</small>
 	          </span>
