@@ -1,4 +1,4 @@
-<?php
+<?php 
   $info = Session::get('info', '0');
   $tipedido = Session::get('tipedido', 'N');
   $sidebarMode = Session::get('sidebarMode', '');
@@ -28,7 +28,7 @@
     <meta charset="UTF-8">
     <title>intra.icompras360 | B2B - Intranet de gestión de compras electronicas entre empresas</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <meta name="keywords" content="icompras, icompras360, iventas, iventas360, ISB, SISTEMAS, ISAweb, ISACOM, DROLAGO, DROGUESUR, PULSO, METROMEDICA, DROSOLVECA, ISAsoft, ISBcliente, Compras, SAINT, PROFIT, Proveedores, Mauricio Blanco, ISAAP, ISABUSCAR, SAINT, DROEXCA, DROANDINA, DROSALUD, DRCLINICA, FARMACEUTICA24, MARAPLUS, FARMALIADAS, ISACOMMERCE, droguerias, farmacias, medicinas, medicamentos, gestor de compras, drofarzuca, drosolveca, rodalvan, dromarko, dromarca, compras, emmanuelle, drocerca, droplus, drogueria365, biogenetoca, B2B">
+    <meta name="keywords" content="Mauricio Blanco,  intra.icompras, icompras, icompras360, iventas, iventas360, ISB, SISTEMAS, ISAweb, ISACOM, DROLAGO, DROGUESUR, PULSO, METROMEDICA, DROSOLVECA, ISAsoft, ISBcliente, Compras, SAINT, PROFIT, Proveedores, Mauricio Blanco, ISAAP, ISABUSCAR, SAINT, DROEXCA, DROANDINA, DROSALUD, DRCLINICA, FARMACEUTICA24, MARAPLUS, FARMALIADAS, ISACOMMERCE, droguerias, farmacias, medicinas, medicamentos, gestor de compras, drofarzuca, drosolveca, rodalvan, dromarko, dromarca, compras, emmanuelle, drocerca, droplus, droplusve, drogueria365, biogenetoca, B2B">
     <link rel="shortcut icon" href="<?php echo e(asset('images/favicon.ico')); ?>">
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Config;
 use DB;
 use Barryvdh\DomPDF\Facade as PDF;
-  
+
 
 class InvClienteController extends Controller
 {
@@ -26,7 +26,7 @@ class InvClienteController extends Controller
         $subtitulo = "INVENTARIO";
         $subtitulo2 = "";
         $codcli = sCodigoClienteActivo();
-        $confcli = LeerCliente($codcli); 
+        $confcli = LeerCliente($codcli);
         $cliente = DB::table('maecliente')
         ->where('codcli','=',$codcli)
         ->first();
@@ -42,11 +42,11 @@ class InvClienteController extends Controller
                 ->orwhere('pactivo','LIKE','%'.$filtro.'%');
             })
             ->orderBy('desprod','asc')
-            ->paginate(100); 
+            ->paginate(100);
 
             $inv = DB::table($tabla)
             ->where('cuarentena', '=', '0')
-            ->selectRaw('count(*) as contador')->first(); 
+            ->selectRaw('count(*) as contador')->first();
             $contador =number_format($inv->contador,0);
 
             if ($invent->count()>0) {
@@ -54,7 +54,7 @@ class InvClienteController extends Controller
                 $subtitulo2 = "INVENTARIO (FECHA: ".$fecha.", RENGLONES: ".$contador.")";
             }
 
-        }  
+        }
         return view('isacom.invcliente.index' ,["menu" => "Inventario",
                                                 "cfg" => DB::table('maecfg')->first(),
                                                 "codcli" => $codcli,
@@ -67,27 +67,27 @@ class InvClienteController extends Controller
     }
 
 	public function store(Request $request) {
-        set_time_limit(500); 
+        set_time_limit(500);
         $codcli = sCodigoClienteActivo();
         $formato = $request->get('formato');
         $rutainv = $request->linkarchivo;
-    
+
         $extension = pathinfo($rutainv, PATHINFO_EXTENSION);
         if ($extension == 'txt')
             $formato = "2";
-        if ($extension == 'csv')  
+        if ($extension == 'csv')
             $formato = "1";
 
         if ( $formato == "0") {
-            log::info("CONVERTIR-> EXTENSION NO COMPATIBLE: ".$rutainv ); 
+            log::info("CONVERTIR-> EXTENSION NO COMPATIBLE: ".$rutainv );
             DB::table('maecliente')
             ->where('codcli','=',$codcli)
             ->update(array("cargarLog" => "CONVERTIR-> EXTENSION NO COMPATIBLE: ".$rutainv));
-            return back()->with('error', "CONVERTIR-> EXTENSION NO COMPATIBLE: ".$rutainv); 
+            return back()->with('error', "CONVERTIR-> EXTENSION NO COMPATIBLE: ".$rutainv);
         }
 
 
-     
+
 
         if($request->hasfile('linkarchivo')) {
             //$BASE_PATH = env('INTRANET_RUTA_PUBLIC', base_path());
@@ -103,7 +103,7 @@ class InvClienteController extends Controller
             $lines = file($rutainv);
             if ( count($lines) <= 0) {
                 $err = "CONVERTIR-> INVENTARIO VACIO: ".$rutainv;
-                log::info($err); 
+                //log::info($err);
                 DB::table('maecliente')
                 ->where('codcli','=',$codcli)
                 ->update(array("cargarLog" => $err));
@@ -165,7 +165,7 @@ class InvClienteController extends Controller
                 ->where('codcli','=',$codcli)
                 ->first();
                 if (is_null($cliente)) {
-                    log::info("CODISB-> NO ENCONTRADO: ".$codcli ); 
+                    log::info("CODISB-> NO ENCONTRADO: ".$codcli );
                     DB::table('maecliente')
                     ->where('codcli','=',$codcli)
                     ->update(array("cargarLog" => "CODISB-> NO ENCONTRADO: ".$codcli));
@@ -175,7 +175,7 @@ class InvClienteController extends Controller
                     try {
                         $linea++;
                         if ($linea < $cliente->LineaInicio)
-                            continue;  
+                            continue;
                         $line = trim(QuitarCaracteres($line));
                         if (substr($line, -1) != $separador)
                             $line = $line.$separador;
@@ -195,7 +195,7 @@ class InvClienteController extends Controller
 
                         $precio = fGetfloat($precio);
                         if ($cliente->CodMoneda == "OM") {
-                            $precio = $precio * $factor;                 
+                            $precio = $precio * $factor;
                         }
 
                         if (empty(trim($cliente->ColIva)))
@@ -213,14 +213,14 @@ class InvClienteController extends Controller
                             $da = fGetfloat($s1[ord($cliente->ColDa)-65]);
                         $cant = fGetfloat($s1[ord($cliente->ColCantidad)-65]);
                         $posPnto = strpos($cant, '.');
-                        if ($posPnto > 0  ) { 
+                        if ($posPnto > 0  ) {
                             $cant = explode('.', $cant);
                             $cant = $cant[0];
                         }
                         if ($cant <= 0)
                             return;
 
-                        log::info("CCP-> LINEA: ".$line ); 
+                        log::info("CCP-> LINEA: ".$line );
                         $desprod = LetrasyNumeros($s1[ord($cliente->ColDesprod)-65]);
                         $precio1 = $precio;
                         if (empty(trim($cliente->ColLote)))
@@ -261,7 +261,7 @@ class InvClienteController extends Controller
                             'psugerido' => $precio,
                             'pgris' => "0.00",
                             'nuevo' => "0",
-                            'fechafalla' => date('Y-m-j H:i:s'), 
+                            'fechafalla' => date('Y-m-j H:i:s'),
                             'tipocatalogo' => "PRINCIPAL",
                             'cuarentena' => "0",
                             'dctoneto' => "0.00",
@@ -273,7 +273,7 @@ class InvClienteController extends Controller
                             'ubicacion' => "N/A",
                             'descorta' => "",
                             'codisb' => $codcli,
-                            'feccatalogo' => date('Y-m-j H:i:s'), 
+                            'feccatalogo' => date('Y-m-j H:i:s'),
                             'categoria' => LeerProdcaract($barra, 'categoria', 'POR DEFINIR'),
                             'molecula' => LeerProdcaract($barra, 'molecula', 'POR DEFINIR'),
                             'subgrupo' => $marca,
@@ -314,7 +314,7 @@ class InvClienteController extends Controller
                                 $separador = ';';
                             }
                         }
-                       
+
                         $s1 = explode($separador, $line);
                         DB::table($tabla)->insert([
                             'barra' => $s1[6],
@@ -334,7 +334,7 @@ class InvClienteController extends Controller
                             'psugerido' => fGetfloat($s1[4]),
                             'pgris' => "0.00",
                             'nuevo' => "0",
-                            'fechafalla' => date('Y-m-j H:i:s'), 
+                            'fechafalla' => date('Y-m-j H:i:s'),
                             'tipocatalogo' => "PRINCIPAL",
                             'cuarentena' => "0",
                             'dctoneto' => "0.00",
@@ -346,7 +346,7 @@ class InvClienteController extends Controller
                             'ubicacion' => "N/A",
                             'descorta' => "",
                             'codisb' => $codcli,
-                            'feccatalogo' => date('Y-m-j H:i:s'), 
+                            'feccatalogo' => date('Y-m-j H:i:s'),
                             'categoria' => LeerProdcaract($s1[6], 'categoria', 'POR DEFINIR'),
                             'molecula' => LeerProdcaract($s1[6], 'molecula', 'POR DEFINIR'),
                             'subgrupo' => $s1[5],
@@ -378,10 +378,10 @@ class InvClienteController extends Controller
                 ->update(array("cargarLog" => "OK, ".date('Y-m-j H:i:s')));
                 session()->flash('message','Su Inventario ha sido cargado satisfactoriamente');
             } else {
-                return back()->with('warning', $err);    
+                return back()->with('warning', $err);
             }
         } else {
-            return back()->with('error', 'Debe seleccionar un archivo txt!');    
+            return back()->with('error', 'Debe seleccionar un archivo txt!');
         }
         return Redirect::to('/invcliente');
     }
@@ -455,5 +455,5 @@ class InvClienteController extends Controller
             session()->flash('error',$e);
         }
     }
- 
+
  }

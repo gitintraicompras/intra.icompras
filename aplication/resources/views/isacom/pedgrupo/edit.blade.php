@@ -5,64 +5,64 @@ $moneda = Session::get('moneda', 'BSS');
 $factor = RetornaFactorCambiario("", $moneda);
 $x=0;
 $y=0;
-@endphp 
-  
+@endphp
+
 <!-- ENCABEZADO -->
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 input-group input-group-sm">
-                
+
                 <span class="input-group-addon">ID:</span>
-                <input readonly type="text" 
+                <input readonly type="text"
                     class="form-control"
-                    value="{{$id}}" 
+                    value="{{$id}}"
                     style="color: #000000; padding: 2px;">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>
                 <span class="input-group-addon hidden-xs">Estado:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control hidden-xs" 
-                    value="{{$pedgrupo->estado}}" 
+                <input readonly
+                    type="text"
+                    class="form-control hidden-xs"
+                    value="{{$pedgrupo->estado}}"
                     style="color: #000000">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>
                 <span class="input-group-addon hidden-xs">Fecha:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control hidden-xs" 
-                    value="{{date('d-m-Y H:i', strtotime($pedgrupo->fecha))}}" 
+                <input readonly
+                    type="text"
+                    class="form-control hidden-xs"
+                    value="{{date('d-m-Y H:i', strtotime($pedgrupo->fecha))}}"
                     style="color: #000000">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>
                 <span class="input-group-addon hidden-xs">Enviado:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control hidden-xs" 
-                    value="{{date('d-m-Y H:i', strtotime($pedgrupo->enviado))}}" 
+                <input readonly
+                    type="text"
+                    class="form-control hidden-xs"
+                    value="{{date('d-m-Y H:i', strtotime($pedgrupo->enviado))}}"
                     style="color:#000000" >
 
                 <span class="input-group-addon" style="border:0px; "></span>
                 <span class="input-group-addon">Marca:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control" 
+                <input readonly
+                    type="text"
+                    class="form-control"
                     value="{{$pedgrupo->marca}}"
                     style="color:#000000" >
-    
+
                 <span class="input-group-addon" style="border:0px; "></span>
                 <span class="input-group-addon">Reposición:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control" 
+                <input readonly
+                    type="text"
+                    class="form-control"
                     value="{{$pedgrupo->reposicion}}"
                     style="color:#000000" >
-               
+
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="btn-toolbar" role="toolbar" style="margin-top: 12px; margin-bottom: 3px;">
     <div class="btn-group" role="group" style="width: 100%;">
@@ -70,40 +70,40 @@ $y=0;
         @include('isacom.pedgrupo.editsearch')
 
         <!-- AGREGAR PRODUCTO NUEVO -->
-        <a href="" 
-            data-target="#modal-agregar-{{$id}}" 
+        <a href=""
+            data-target="#modal-agregar-{{$id}}"
             data-toggle="modal">
-            <button style="width: 90px; height: 34px; border-radius: 5px;" 
-                type="button" 
-                data-toggle="tooltip" 
-                title="Agregar producto nuevo al pedido" 
+            <button style="width: 90px; height: 34px; border-radius: 5px;"
+                type="button"
+                data-toggle="tooltip"
+                title="Agregar producto nuevo al pedido"
                 class="btn-catalogo">
                 Agregar
             </button>
         </a>
-   
+
         <!-- ENVIA PEDIDO -->
-        <a href="" 
-            data-target="#modal-enviar-{{$id}}" 
+        <a href=""
+            data-target="#modal-enviar-{{$id}}"
             data-toggle="modal">
-            <button style="width: 90px; height: 34px; border-radius: 5px;" 
-                type="button" 
-                data-toggle="tooltip" 
-                title="Enviar pedido" 
+            <button style="width: 90px; height: 34px; border-radius: 5px;"
+                type="button"
+                data-toggle="tooltip"
+                title="Enviar pedido"
                 class="btn-confirmar">
                 Enviar
             </button>
         </a>
 
-    </div> 
-</div> 
+    </div>
+</div>
 @include('isacom.pedgrupo.agregar')
-@include('isacom.pedgrupo.enviar')  
+@include('isacom.pedgrupo.enviar')
 
 <div class="row" style="margin-top: 5px;">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="table-responsive">
-            <table id="myTable" 
+            <table id="myTable"
                 class="table table-striped table-bordered table-condensed table-hover">
 
                 <thead style="background-color: #b7b7b7;">
@@ -112,16 +112,16 @@ $y=0;
                     </th>
 
                     <th colspan="2"
-                        style="width: 200; 
+                        style="width: 200;
                         background-color: #FEE3CB;
                         color: black;">
                         <center>
                         &nbsp;&nbsp;&nbsp;&nbsp;PROVEEDOR&nbsp;&nbsp;&nbsp;&nbsp;
                         </center>
                     </th>
-                    
+
                     <th colspan="2"
-                        style="width: 200; 
+                        style="width: 200;
                         background-color: #FCD5B8;
                         color: black;">
                         <center>
@@ -131,35 +131,35 @@ $y=0;
 
                     @foreach ($gruporen as $gr)
 
-                        @php 
+                        @php
                         $codsuc = $gr->codcli;
-                        $confcli = LeerCliente($codsuc); 
+                        $confcli = LeerCliente($codsuc);
                         $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
                         $fechaHoy = trim(date("Y-m-d"));
                         $fechaInv = trim(date('Y-m-d', strtotime($actualizado)));
                         $idped = '';
                         $pedido = ObtenerPedidoGrupo($id,$codsuc);
-                        if (!empty($pedido)) 
+                        if (!empty($pedido))
                             $idped = '('.$pedido->id .'-'. $pedido->estado.')';
                         @endphp
-                        
-                        <th colspan="8" 
-                            style="background-color: {{$confcli->backcolor}}; 
-                            color: {{$confcli->forecolor}}; 
-                            width: 400px; 
+
+                        <th colspan="8"
+                            style="background-color: {{$confcli->backcolor}};
+                            color: {{$confcli->forecolor}};
+                            width: 400px;
                             word-wrap: break-word; ">
                             <a href="{{URL::action('GrupoController@show',$codsuc)}}">
                                 <center>
-                                    <button type="button" 
-                                        data-toggle="tooltip" 
-                                        title="{{$confcli->nombre}} &#10 ({{$actualizado}})" 
-                                        style="background-color: {{$confcli->backcolor}}; 
+                                    <button type="button"
+                                        data-toggle="tooltip"
+                                        title="{{$confcli->nombre}} &#10 ({{$actualizado}})"
+                                        style="background-color: {{$confcli->backcolor}};
                                         border: none;
                                         @if ($fechaInv != $fechaHoy)
                                             color: red;
                                         @else
                                             color: {{$confcli->forecolor}};
-                                        @endif 
+                                        @endif
                                         "> {{$confcli->descripcion}} {{$idped}}
                                     </button>
                                 </center>
@@ -223,7 +223,7 @@ $y=0;
 
                         @php
                         $codsuc = $gr->codcli;
-                        $confcli = LeerCliente($codsuc); 
+                        $confcli = LeerCliente($codsuc);
                         $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
                         $fechaHoy = trim(date("Y-m-d"));
                         $fechaInv = trim(date('Y-m-d', strtotime($actualizado)));
@@ -322,11 +322,11 @@ $y=0;
                                 <div align="center">
                                     <a href="{{URL::action('PedidoController@verprod',$p->barra)}}">
 
-                                    <img src="http://isaweb.isbsistemas.com/public/storage/prod/{{NombreImagen($p->barra)}}" 
-                                    width="100%" 
-                                    height="100%" 
-                                    class="img-responsive" 
-                                    alt="icompras360" 
+                                    <img src="http://isaweb.isbsistemas.com/public/storage/prod/{{NombreImagen($p->barra)}}"
+                                    width="100%"
+                                    height="100%"
+                                    class="img-responsive"
+                                    alt="icompras360"
                                     style="border: 2px solid #D2D6DE;"
                                     oncontextmenu="return false">
 
@@ -343,7 +343,7 @@ $y=0;
                                 {{$p->barra}}
                             </td>
 
-                            <td align="right" 
+                            <td align="right"
                                 style="width: 60px;"
                                 title="UNIDAD DE MANEJO">
                                 {{$p->bulto}}
@@ -353,14 +353,14 @@ $y=0;
                                 title="IVA">
                                 {{number_format($p->iva, 2, '.', ',')}}
                             </td>
-                
+
                             <!-- PROVEEDOR-->
-                            <td align="right" 
+                            <td align="right"
                                 style="background-color: #FEE3CB;"
                                 title="MEJOR PRECIO DEL PROVEEDOR">
                                 {{number_format($mpp/$factor, 2, '.', ',')}}
                             </td>
-                            <td align="right" 
+                            <td align="right"
                                 style="background-color: #FEE3CB;"
                                 title="CONSOLIDADO DEL PROVEEDOR">
                                 {{number_format($invConsolProv, 0, '.', ',')}}
@@ -411,7 +411,7 @@ $y=0;
                                 $transito = verificarProdTransito($p->barra,  $codsuc, "");
                                 $inv = verificarProdInventario($p->barra,  $codsuc);
                                 if (!is_null($inv)) {
-                                    $codprod = $inv->codprod; 
+                                    $codprod = $inv->codprod;
                                     $vmd = $inv->vmd;
                                     $cant = $inv->cantidad;
                                     if ($vmd > 0)
@@ -420,43 +420,43 @@ $y=0;
                                 @endphp
 
                                 <!-- DETALLES -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: {{$confcli->backcolor}};
                                     color: {{$confcli->forecolor}};"
                                     title="Cantidad sugerida">
-                                    <span class="input-group-addon" 
-                                        style="margin: 0px; 
+                                    <span class="input-group-addon"
+                                        style="margin: 0px;
                                         width: 140px;">
-                                        <div class="col-xs-12 
+                                        <div class="col-xs-12
                                             input-group
-                                            input-group-sm" 
-                                            style="margin: 0px; 
+                                            input-group-sm"
+                                            style="margin: 0px;
                                             width: 140px;">
-                                            
-                                            <input style="text-align: center; 
-                                                color: #000000; 
-                                                width: 60px;" 
-                                                id="sug_{{$codsuc}}_{{$p->barra}}" 
-                                                value="{{number_format($cantidad, 0, '.', ',')}}" 
+
+                                            <input style="text-align: center;
+                                                color: #000000;
+                                                width: 60px;"
+                                                id="sug_{{$codsuc}}_{{$p->barra}}"
+                                                value="{{number_format($cantidad, 0, '.', ',')}}"
                                                 class="form-control" >
 
-                                            <button type="button" 
+                                            <button type="button"
                                                 class="btn btn-pedido BtnModificar"
-                                                id="idModificar_{{$codsuc}}_{{$p->barra}}_{{$x}}" 
-                                                data-toggle="tooltip" 
+                                                id="idModificar_{{$codsuc}}_{{$p->barra}}_{{$x}}"
+                                                data-toggle="tooltip"
                                                 title="Modificar cantidad">
-                                                
-                                                <span 
-                                                    class="fa fa-check" 
+
+                                                <span
+                                                    class="fa fa-check"
                                                     id="idModificar_{{$codsuc}}_{{$p->barra}}_{{$x}}" aria-hidden="true" >
                                                 </span>
-                                                
-                                                <a href="" 
+
+                                                <a href=""
                                                     data-target="#modal_delete_{{$codsuc}}_{{$p->barra}}" data-toggle="modal">
                                                     <button
-                                                    class="btn btn-pedido fa fa-trash-o" 
-                                                    style="height: 2pc;" 
-                                                    data-toggle="tooltip" 
+                                                    class="btn btn-pedido fa fa-trash-o"
+                                                    style="height: 2pc;"
+                                                    data-toggle="tooltip"
                                                     title="Eliminar producto">
                                                     </button>
                                                 </a>
@@ -470,7 +470,7 @@ $y=0;
                                 </td>
 
                                 <!-- COSTO -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: {{$confcli->backcolor}};
                                     color: {{$confcli->forecolor}};"
                                     title="Costo del producto"
@@ -478,7 +478,7 @@ $y=0;
                                     {{number_format($precio/$factor, 2, '.', ',')}}
                                 </td>
                                 <!-- SUBTOTAL -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: {{$confcli->backcolor}};
                                     color: {{$confcli->forecolor}};"
                                     title="Subtotal Costo x producto"
@@ -487,15 +487,15 @@ $y=0;
                                 </td>
 
                                 <!-- TRANSITO -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: {{$confcli->backcolor}};
                                     color: {{$confcli->forecolor}};"
                                     title="Inventario en transito del producto"
                                     id='tran_{{$codsuc}}_{{$x}}'>
-                                    {{number_format($transito, 0, '.', ',')}} 
+                                    {{number_format($transito, 0, '.', ',')}}
                                 </td>
                                 <!-- INVENTARIO -->
-                                <td align="right"  
+                                <td align="right"
                                     style="background-color: {{$confcli->backcolor}};
                                     color: {{$confcli->forecolor}};"
                                     title="Inventario del producto"
@@ -503,7 +503,7 @@ $y=0;
                                     {{number_format($cant, 0, '.', ',')}}
                                 </td>
                                 <!-- VMD -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: {{$confcli->backcolor}};
                                     color: {{$confcli->forecolor}};"
                                     title="Venta Media Diaria del producto"
@@ -517,7 +517,7 @@ $y=0;
                                     color: {{$confcli->forecolor}};"
                                     title="Dias de inventario del producto"
                                     id='dias_{{$codsuc}}_{{$x}}'>
-                                    {{number_format($dias, 0, '.', ',')}} 
+                                    {{number_format($dias, 0, '.', ',')}}
                                 </td>
 
                                 <!-- CODPROD -->
@@ -547,12 +547,12 @@ $y=0;
                             title="Monto del Costo del grupo"
                             id='cosgrp'>
                         </th>
-                       
+
                         @foreach ($gruporen as $gr)
 
-                            @php 
+                            @php
                             $codsuc = $gr->codcli;
-                            $confcli = LeerCliente($codsuc); 
+                            $confcli = LeerCliente($codsuc);
                             @endphp
 
                             <!-- DETALLES -->
@@ -578,16 +578,16 @@ $y=0;
                         </th>
 
                         <th colspan="2"
-                            style="width: 200; 
+                            style="width: 200;
                             background-color: #FEE3CB;
                             color: black;">
                             <center>
                             &nbsp;&nbsp;&nbsp;&nbsp;PROVEEDOR&nbsp;&nbsp;&nbsp;&nbsp;
                             </center>
                         </th>
-                        
+
                         <th colspan="2"
-                            style="width: 200; 
+                            style="width: 200;
                             background-color: #FCD5B8;
                             color: black;">
                             <center>
@@ -597,35 +597,35 @@ $y=0;
 
                         @foreach ($gruporen as $gr)
 
-                            @php 
+                            @php
                             $codsuc = $gr->codcli;
-                            $confcli = LeerCliente($codsuc); 
+                            $confcli = LeerCliente($codsuc);
                             $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
                             $fechaHoy = trim(date("Y-m-d"));
                             $fechaInv = trim(date('Y-m-d', strtotime($actualizado)));
                             $idped = '';
                             $pedido = ObtenerPedidoGrupo($id,$codsuc);
-                            if (!empty($pedido)) 
+                            if (!empty($pedido))
                                 $idped = '('.$pedido->id .'-'. $pedido->estado.')';
                             @endphp
-                            
-                            <th colspan="8" 
-                                style="background-color: {{$confcli->backcolor}}; 
-                                color: {{$confcli->forecolor}}; 
-                                width: 400px; 
+
+                            <th colspan="8"
+                                style="background-color: {{$confcli->backcolor}};
+                                color: {{$confcli->forecolor}};
+                                width: 400px;
                                 word-wrap: break-word; ">
                                 <a href="{{URL::action('GrupoController@show',$codsuc)}}">
                                     <center>
-                                        <button type="button" 
-                                            data-toggle="tooltip" 
-                                            title="{{$confcli->nombre}} &#10 ({{$actualizado}})" 
-                                            style="background-color: {{$confcli->backcolor}}; 
+                                        <button type="button"
+                                            data-toggle="tooltip"
+                                            title="{{$confcli->nombre}} &#10 ({{$actualizado}})"
+                                            style="background-color: {{$confcli->backcolor}};
                                             border: none;
                                             @if ($fechaInv != $fechaHoy)
                                                 color: red;
                                             @else
                                                 color: {{$confcli->forecolor}};
-                                            @endif 
+                                            @endif
                                             "> {{$confcli->descripcion}} {{$idped}}
                                         </button>
                                     </center>
@@ -639,7 +639,7 @@ $y=0;
             @if ($moneda == "USD")
             <h4>
              *** {{$cfg->simboloOM}} {{number_format($factor, 2, '.', ',')}} ***
-            </h4>  
+            </h4>
             @endif
 
             <div align='left'>
@@ -648,7 +648,7 @@ $y=0;
                 @endif
             </div><br>
         </div>
-    </div> 
+    </div>
 </div>
 
 @push ('scripts')
@@ -673,14 +673,14 @@ $('.BtnModificar').on('click',function(e) {
     var jqxhr = $.ajax({
         type:'POST',
         url:'../modificar',
-        dataType: 'json', 
+        dataType: 'json',
         encode  : true,
         data: {barra:barra, pedir:pedir, codsuc:codsuc, idpgrp:idpgrp, codgrupo:codgrupo },
         success:function(data) {
             resp = data.msg;
-            //reg = data.reg; 
+            //reg = data.reg;
             $('#sug_' + codsuc + '_' + x).text(pedir);
-            $('#cos_' + codsuc + '_' + x).text(data.reg.precio);                  
+            $('#cos_' + codsuc + '_' + x).text(data.reg.precio);
             $('#tot_' + codsuc + '_' + x).text(data.reg.subtotal);
             $('#codprod_' + codsuc + '_' + x).text(data.reg.codprod);
 
@@ -688,7 +688,7 @@ $('.BtnModificar').on('click',function(e) {
             $('#vmd_' + codsuc + '_' + x).text(data.vmd);
             $('#dias_' + codsuc + '_' + x).text(data.dias);
             $('#tran_' + codsuc + '_' + x).text(data.tran);
-    
+
         }
     });
     jqxhr.always(function() {
@@ -696,7 +696,7 @@ $('.BtnModificar').on('click',function(e) {
             window.location.reload();
         } else {
             Refrescar();
-        } 
+        }
     });
 });
 
@@ -708,7 +708,7 @@ function Refrescar() {
     var jqxhr = $.ajax({
         type:'POST',
         url: '../obtenerCodcliGrupo',
-        dataType: 'json', 
+        dataType: 'json',
         encode  : true,
         data: {codgrupo:codgrupo },
         success:function(data) {
@@ -720,7 +720,7 @@ function Refrescar() {
         for (var z = 0; z < cont; z++) {
             var codsuc = arrCodsuc[z].toString().trim();
             var suger = 0;
-            var costo = 0;   
+            var costo = 0;
             for (var i = 1; i < tableReg.rows.length-3; i++) {
                 var x = i.toString().trim();
                 var sugx = $('#sug_' + codsuc + "_" + x).text().replace(/,/g, '');
@@ -733,7 +733,7 @@ function Refrescar() {
         }
         for (var i = 1; i < tableReg.rows.length-3; i++) {
             var suger = 0;
-            var costo = 0;   
+            var costo = 0;
             var codsuc = "";
             var x = i.toString().trim();
             for (var z = 0; z < cont; z++) {
@@ -742,7 +742,7 @@ function Refrescar() {
                 var totx = $('#tot_' + codsuc + "_" + x).text().replace(/,/g, '');
                 costo += parseFloat(totx);
                 suger += parseFloat(sugx);
-            }  
+            }
             $("#cosgrp_"+i).text(number_format(costo, 2, '.', ','));
             $("#suggrp_"+i).text(number_format(suger, 0, '.', ','));
         }
@@ -787,13 +787,13 @@ function cargarProd() {
         var jqxhr = $.ajax({
             type:'POST',
             url: '../obtenerTablaCliMaestra',
-            dataType: 'json', 
+            dataType: 'json',
             encode  : true,
             data: { codgrupo:codgrupo, filtro:filtro },
             success:function(data) {
                 $("#tbodyProducto").empty();
                 $.each(data.resp, function(index, item){
-                   var valor = 
+                   var valor =
                     '<tr>' +
                       "<td style='padding-top: 10px;'>" +
                       "<span onclick='tdclick(event);'>" +

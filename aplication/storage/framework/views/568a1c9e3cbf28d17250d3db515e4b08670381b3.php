@@ -1,68 +1,67 @@
-
 <?php $__env->startSection('contenido'); ?>
 <?php
 $moneda = Session::get('moneda', 'BSS');
 $factor = RetornaFactorCambiario("", $moneda);
 $x=0;
 $y=0;
-?> 
-  
+?>
+
 <!-- ENCABEZADO -->
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="form-group">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 input-group input-group-sm">
-                
+
                 <span class="input-group-addon">ID:</span>
-                <input readonly type="text" 
+                <input readonly type="text"
                     class="form-control"
-                    value="<?php echo e($id); ?>" 
+                    value="<?php echo e($id); ?>"
                     style="color: #000000; padding: 2px;">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>
                 <span class="input-group-addon hidden-xs">Estado:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control hidden-xs" 
-                    value="<?php echo e($pedgrupo->estado); ?>" 
+                <input readonly
+                    type="text"
+                    class="form-control hidden-xs"
+                    value="<?php echo e($pedgrupo->estado); ?>"
                     style="color: #000000">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>
                 <span class="input-group-addon hidden-xs">Fecha:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control hidden-xs" 
-                    value="<?php echo e(date('d-m-Y H:i:s', strtotime($pedgrupo->fecha))); ?>" 
+                <input readonly
+                    type="text"
+                    class="form-control hidden-xs"
+                    value="<?php echo e(date('d-m-Y H:i', strtotime($pedgrupo->fecha))); ?>"
                     style="color: #000000">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>
                 <span class="input-group-addon hidden-xs">Enviado:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control hidden-xs" 
-                    value="<?php echo e(date('d-m-Y H:i:s', strtotime($pedgrupo->enviado))); ?>" 
+                <input readonly
+                    type="text"
+                    class="form-control hidden-xs"
+                    value="<?php echo e(date('d-m-Y H:i', strtotime($pedgrupo->enviado))); ?>"
                     style="color:#000000" >
 
                 <span class="input-group-addon" style="border:0px; "></span>
                 <span class="input-group-addon">Marca:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control" 
+                <input readonly
+                    type="text"
+                    class="form-control"
                     value="<?php echo e($pedgrupo->marca); ?>"
                     style="color:#000000" >
-    
+
                 <span class="input-group-addon" style="border:0px; "></span>
                 <span class="input-group-addon">Reposición:</span>
-                <input readonly 
-                    type="text" 
-                    class="form-control" 
+                <input readonly
+                    type="text"
+                    class="form-control"
                     value="<?php echo e($pedgrupo->reposicion); ?>"
                     style="color:#000000" >
-               
+
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="btn-toolbar" role="toolbar" style="margin-top: 12px; margin-bottom: 3px;">
     <div class="btn-group" role="group" style="width: 100%;">
@@ -70,40 +69,40 @@ $y=0;
         <?php echo $__env->make('isacom.pedgrupo.editsearch', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <!-- AGREGAR PRODUCTO NUEVO -->
-        <a href="" 
-            data-target="#modal-agregar-<?php echo e($id); ?>" 
+        <a href=""
+            data-target="#modal-agregar-<?php echo e($id); ?>"
             data-toggle="modal">
-            <button style="width: 90px; height: 34px; border-radius: 5px;" 
-                type="button" 
-                data-toggle="tooltip" 
-                title="Agregar producto nuevo al pedido" 
+            <button style="width: 90px; height: 34px; border-radius: 5px;"
+                type="button"
+                data-toggle="tooltip"
+                title="Agregar producto nuevo al pedido"
                 class="btn-catalogo">
                 Agregar
             </button>
         </a>
-   
+
         <!-- ENVIA PEDIDO -->
-        <a href="" 
-            data-target="#modal-enviar-<?php echo e($id); ?>" 
+        <a href=""
+            data-target="#modal-enviar-<?php echo e($id); ?>"
             data-toggle="modal">
-            <button style="width: 90px; height: 34px; border-radius: 5px;" 
-                type="button" 
-                data-toggle="tooltip" 
-                title="Enviar pedido" 
+            <button style="width: 90px; height: 34px; border-radius: 5px;"
+                type="button"
+                data-toggle="tooltip"
+                title="Enviar pedido"
                 class="btn-confirmar">
                 Enviar
             </button>
         </a>
 
-    </div> 
-</div> 
+    </div>
+</div>
 <?php echo $__env->make('isacom.pedgrupo.agregar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('isacom.pedgrupo.enviar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>  
+<?php echo $__env->make('isacom.pedgrupo.enviar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <div class="row" style="margin-top: 5px;">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="table-responsive">
-            <table id="myTable" 
+            <table id="myTable"
                 class="table table-striped table-bordered table-condensed table-hover">
 
                 <thead style="background-color: #b7b7b7;">
@@ -112,16 +111,16 @@ $y=0;
                     </th>
 
                     <th colspan="2"
-                        style="width: 200; 
+                        style="width: 200;
                         background-color: #FEE3CB;
                         color: black;">
                         <center>
                         &nbsp;&nbsp;&nbsp;&nbsp;PROVEEDOR&nbsp;&nbsp;&nbsp;&nbsp;
                         </center>
                     </th>
-                    
+
                     <th colspan="2"
-                        style="width: 200; 
+                        style="width: 200;
                         background-color: #FCD5B8;
                         color: black;">
                         <center>
@@ -131,35 +130,35 @@ $y=0;
 
                     <?php $__currentLoopData = $gruporen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                        <?php 
+                        <?php
                         $codsuc = $gr->codcli;
-                        $confcli = LeerCliente($codsuc); 
-                        $actualizado = date('d-m-Y H:i:s', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
+                        $confcli = LeerCliente($codsuc);
+                        $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
                         $fechaHoy = trim(date("Y-m-d"));
                         $fechaInv = trim(date('Y-m-d', strtotime($actualizado)));
                         $idped = '';
                         $pedido = ObtenerPedidoGrupo($id,$codsuc);
-                        if (!empty($pedido)) 
+                        if (!empty($pedido))
                             $idped = '('.$pedido->id .'-'. $pedido->estado.')';
                         ?>
-                        
-                        <th colspan="8" 
-                            style="background-color: <?php echo e($confcli->backcolor); ?>; 
-                            color: <?php echo e($confcli->forecolor); ?>; 
-                            width: 400px; 
+
+                        <th colspan="8"
+                            style="background-color: <?php echo e($confcli->backcolor); ?>;
+                            color: <?php echo e($confcli->forecolor); ?>;
+                            width: 400px;
                             word-wrap: break-word; ">
                             <a href="<?php echo e(URL::action('GrupoController@show',$codsuc)); ?>">
                                 <center>
-                                    <button type="button" 
-                                        data-toggle="tooltip" 
-                                        title="<?php echo e($confcli->nombre); ?> &#10 (<?php echo e($actualizado); ?>)" 
-                                        style="background-color: <?php echo e($confcli->backcolor); ?>; 
+                                    <button type="button"
+                                        data-toggle="tooltip"
+                                        title="<?php echo e($confcli->nombre); ?> &#10 (<?php echo e($actualizado); ?>)"
+                                        style="background-color: <?php echo e($confcli->backcolor); ?>;
                                         border: none;
                                         <?php if($fechaInv != $fechaHoy): ?>
                                             color: red;
                                         <?php else: ?>
                                             color: <?php echo e($confcli->forecolor); ?>;
-                                        <?php endif; ?> 
+                                        <?php endif; ?>
                                         "> <?php echo e($confcli->descripcion); ?> <?php echo e($idped); ?>
 
                                     </button>
@@ -224,8 +223,8 @@ $y=0;
 
                         <?php
                         $codsuc = $gr->codcli;
-                        $confcli = LeerCliente($codsuc); 
-                        $actualizado = date('d-m-Y H:i:s', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
+                        $confcli = LeerCliente($codsuc);
+                        $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
                         $fechaHoy = trim(date("Y-m-d"));
                         $fechaInv = trim(date('Y-m-d', strtotime($actualizado)));
                         ?>
@@ -309,7 +308,7 @@ $y=0;
                             $dc = $maeclieprove->dcme;
                             $di = $maeclieprove->di;
                             $pp = $maeclieprove->ppme;
-                            $mpp = CalculaPrecioNeto($precioprove, $daprove, $di, $dc, $pp);
+                            $mpp = CalculaPrecioNeto($precioprove, $daprove, $di, $dc, $pp, 0.00);
                         }
                         ?>
                         <tr>
@@ -324,11 +323,14 @@ $y=0;
                                 <div align="center">
                                     <a href="<?php echo e(URL::action('PedidoController@verprod',$p->barra)); ?>">
 
-                                    <img src="http://isaweb.isbsistemas.com/public/storage/prod/<?php echo e(NombreImagen($p->barra)); ?>" 
-                                    width="100%" height="100%" class="img-responsive" 
-                                    alt="ICOMPRAS" >
+                                    <img src="http://isaweb.isbsistemas.com/public/storage/prod/<?php echo e(NombreImagen($p->barra)); ?>"
+                                    width="100%"
+                                    height="100%"
+                                    class="img-responsive"
+                                    alt="icompras360"
+                                    style="border: 2px solid #D2D6DE;"
+                                    oncontextmenu="return false">
 
-                        
                                     </a>
                                 </div>
                             </td>
@@ -344,7 +346,7 @@ $y=0;
 
                             </td>
 
-                            <td align="right" 
+                            <td align="right"
                                 style="width: 60px;"
                                 title="UNIDAD DE MANEJO">
                                 <?php echo e($p->bulto); ?>
@@ -356,15 +358,15 @@ $y=0;
                                 <?php echo e(number_format($p->iva, 2, '.', ',')); ?>
 
                             </td>
-                
+
                             <!-- PROVEEDOR-->
-                            <td align="right" 
+                            <td align="right"
                                 style="background-color: #FEE3CB;"
                                 title="MEJOR PRECIO DEL PROVEEDOR">
                                 <?php echo e(number_format($mpp/$factor, 2, '.', ',')); ?>
 
                             </td>
-                            <td align="right" 
+                            <td align="right"
                                 style="background-color: #FEE3CB;"
                                 title="CONSOLIDADO DEL PROVEEDOR">
                                 <?php echo e(number_format($invConsolProv, 0, '.', ',')); ?>
@@ -386,8 +388,10 @@ $y=0;
                             <?php $__currentLoopData = $gruporen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php
                                 $codsuc = strtolower($gr->codcli);
-                                $actualizado = date('d-m-Y H:i:s', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
-                                $confcli = LeerCliente($codsuc); 
+                                $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
+                                $confcli = LeerCliente($codsuc);
+
+
                                 $cantidad = 0;
                                 $precio = 0;
                                 $subtotal = 0;
@@ -414,7 +418,7 @@ $y=0;
                                 $transito = verificarProdTransito($p->barra,  $codsuc, "");
                                 $inv = verificarProdInventario($p->barra,  $codsuc);
                                 if (!is_null($inv)) {
-                                    $codprod = $inv->codprod; 
+                                    $codprod = $inv->codprod;
                                     $vmd = $inv->vmd;
                                     $cant = $inv->cantidad;
                                     if ($vmd > 0)
@@ -423,43 +427,43 @@ $y=0;
                                 ?>
 
                                 <!-- DETALLES -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: <?php echo e($confcli->backcolor); ?>;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Cantidad sugerida">
-                                    <span class="input-group-addon" 
-                                        style="margin: 0px; 
+                                    <span class="input-group-addon"
+                                        style="margin: 0px;
                                         width: 140px;">
-                                        <div class="col-xs-12 
+                                        <div class="col-xs-12
                                             input-group
-                                            input-group-sm" 
-                                            style="margin: 0px; 
+                                            input-group-sm"
+                                            style="margin: 0px;
                                             width: 140px;">
-                                            
-                                            <input style="text-align: center; 
-                                                color: #000000; 
-                                                width: 60px;" 
-                                                id="sug_<?php echo e($codsuc); ?>_<?php echo e($p->barra); ?>" 
-                                                value="<?php echo e(number_format($cantidad, 0, '.', ',')); ?>" 
+
+                                            <input style="text-align: center;
+                                                color: #000000;
+                                                width: 60px;"
+                                                id="sug_<?php echo e($codsuc); ?>_<?php echo e($p->barra); ?>"
+                                                value="<?php echo e(number_format($cantidad, 0, '.', ',')); ?>"
                                                 class="form-control" >
 
-                                            <button type="button" 
+                                            <button type="button"
                                                 class="btn btn-pedido BtnModificar"
-                                                id="idModificar_<?php echo e($codsuc); ?>_<?php echo e($p->barra); ?>_<?php echo e($x); ?>" 
-                                                data-toggle="tooltip" 
+                                                id="idModificar_<?php echo e($codsuc); ?>_<?php echo e($p->barra); ?>_<?php echo e($x); ?>"
+                                                data-toggle="tooltip"
                                                 title="Modificar cantidad">
-                                                
-                                                <span 
-                                                    class="fa fa-check" 
+
+                                                <span
+                                                    class="fa fa-check"
                                                     id="idModificar_<?php echo e($codsuc); ?>_<?php echo e($p->barra); ?>_<?php echo e($x); ?>" aria-hidden="true" >
                                                 </span>
-                                                
-                                                <a href="" 
+
+                                                <a href=""
                                                     data-target="#modal_delete_<?php echo e($codsuc); ?>_<?php echo e($p->barra); ?>" data-toggle="modal">
                                                     <button
-                                                    class="btn btn-pedido fa fa-trash-o" 
-                                                    style="height: 2pc;" 
-                                                    data-toggle="tooltip" 
+                                                    class="btn btn-pedido fa fa-trash-o"
+                                                    style="height: 2pc;"
+                                                    data-toggle="tooltip"
                                                     title="Eliminar producto">
                                                     </button>
                                                 </a>
@@ -474,7 +478,7 @@ $y=0;
                                 </td>
 
                                 <!-- COSTO -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: <?php echo e($confcli->backcolor); ?>;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Costo del producto"
@@ -483,7 +487,7 @@ $y=0;
 
                                 </td>
                                 <!-- SUBTOTAL -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: <?php echo e($confcli->backcolor); ?>;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Subtotal Costo x producto"
@@ -493,15 +497,16 @@ $y=0;
                                 </td>
 
                                 <!-- TRANSITO -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: <?php echo e($confcli->backcolor); ?>;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Inventario en transito del producto"
                                     id='tran_<?php echo e($codsuc); ?>_<?php echo e($x); ?>'>
-                                    <?php echo e(number_format($transito, 0, '.', ',')); ?> 
+                                    <?php echo e(number_format($transito, 0, '.', ',')); ?>
+
                                 </td>
                                 <!-- INVENTARIO -->
-                                <td align="right"  
+                                <td align="right"
                                     style="background-color: <?php echo e($confcli->backcolor); ?>;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Inventario del producto"
@@ -510,7 +515,7 @@ $y=0;
 
                                 </td>
                                 <!-- VMD -->
-                                <td align="right" 
+                                <td align="right"
                                     style="background-color: <?php echo e($confcli->backcolor); ?>;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Venta Media Diaria del producto"
@@ -525,7 +530,8 @@ $y=0;
                                     color: <?php echo e($confcli->forecolor); ?>;"
                                     title="Dias de inventario del producto"
                                     id='dias_<?php echo e($codsuc); ?>_<?php echo e($x); ?>'>
-                                    <?php echo e(number_format($dias, 0, '.', ',')); ?> 
+                                    <?php echo e(number_format($dias, 0, '.', ',')); ?>
+
                                 </td>
 
                                 <!-- CODPROD -->
@@ -556,12 +562,12 @@ $y=0;
                             title="Monto del Costo del grupo"
                             id='cosgrp'>
                         </th>
-                       
+
                         <?php $__currentLoopData = $gruporen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            <?php 
+                            <?php
                             $codsuc = $gr->codcli;
-                            $confcli = LeerCliente($codsuc); 
+                            $confcli = LeerCliente($codsuc);
                             ?>
 
                             <!-- DETALLES -->
@@ -587,16 +593,16 @@ $y=0;
                         </th>
 
                         <th colspan="2"
-                            style="width: 200; 
+                            style="width: 200;
                             background-color: #FEE3CB;
                             color: black;">
                             <center>
                             &nbsp;&nbsp;&nbsp;&nbsp;PROVEEDOR&nbsp;&nbsp;&nbsp;&nbsp;
                             </center>
                         </th>
-                        
+
                         <th colspan="2"
-                            style="width: 200; 
+                            style="width: 200;
                             background-color: #FCD5B8;
                             color: black;">
                             <center>
@@ -606,35 +612,35 @@ $y=0;
 
                         <?php $__currentLoopData = $gruporen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            <?php 
+                            <?php
                             $codsuc = $gr->codcli;
-                            $confcli = LeerCliente($codsuc); 
-                            $actualizado = date('d-m-Y H:i:s', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
+                            $confcli = LeerCliente($codsuc);
+                            $actualizado = date('d-m-Y H:i', strtotime(LeerTablaFirst('inventario_'.$codsuc, 'feccatalogo')));
                             $fechaHoy = trim(date("Y-m-d"));
                             $fechaInv = trim(date('Y-m-d', strtotime($actualizado)));
                             $idped = '';
                             $pedido = ObtenerPedidoGrupo($id,$codsuc);
-                            if (!empty($pedido)) 
+                            if (!empty($pedido))
                                 $idped = '('.$pedido->id .'-'. $pedido->estado.')';
                             ?>
-                            
-                            <th colspan="8" 
-                                style="background-color: <?php echo e($confcli->backcolor); ?>; 
-                                color: <?php echo e($confcli->forecolor); ?>; 
-                                width: 400px; 
+
+                            <th colspan="8"
+                                style="background-color: <?php echo e($confcli->backcolor); ?>;
+                                color: <?php echo e($confcli->forecolor); ?>;
+                                width: 400px;
                                 word-wrap: break-word; ">
                                 <a href="<?php echo e(URL::action('GrupoController@show',$codsuc)); ?>">
                                     <center>
-                                        <button type="button" 
-                                            data-toggle="tooltip" 
-                                            title="<?php echo e($confcli->nombre); ?> &#10 (<?php echo e($actualizado); ?>)" 
-                                            style="background-color: <?php echo e($confcli->backcolor); ?>; 
+                                        <button type="button"
+                                            data-toggle="tooltip"
+                                            title="<?php echo e($confcli->nombre); ?> &#10 (<?php echo e($actualizado); ?>)"
+                                            style="background-color: <?php echo e($confcli->backcolor); ?>;
                                             border: none;
                                             <?php if($fechaInv != $fechaHoy): ?>
                                                 color: red;
                                             <?php else: ?>
                                                 color: <?php echo e($confcli->forecolor); ?>;
-                                            <?php endif; ?> 
+                                            <?php endif; ?>
                                             "> <?php echo e($confcli->descripcion); ?> <?php echo e($idped); ?>
 
                                         </button>
@@ -649,7 +655,7 @@ $y=0;
             <?php if($moneda == "USD"): ?>
             <h4>
              *** <?php echo e($cfg->simboloOM); ?> <?php echo e(number_format($factor, 2, '.', ',')); ?> ***
-            </h4>  
+            </h4>
             <?php endif; ?>
 
             <div align='left'>
@@ -659,7 +665,7 @@ $y=0;
                 <?php endif; ?>
             </div><br>
         </div>
-    </div> 
+    </div>
 </div>
 
 <?php $__env->startPush('scripts'); ?>
@@ -684,14 +690,14 @@ $('.BtnModificar').on('click',function(e) {
     var jqxhr = $.ajax({
         type:'POST',
         url:'../modificar',
-        dataType: 'json', 
+        dataType: 'json',
         encode  : true,
         data: {barra:barra, pedir:pedir, codsuc:codsuc, idpgrp:idpgrp, codgrupo:codgrupo },
         success:function(data) {
             resp = data.msg;
-            //reg = data.reg; 
+            //reg = data.reg;
             $('#sug_' + codsuc + '_' + x).text(pedir);
-            $('#cos_' + codsuc + '_' + x).text(data.reg.precio);                  
+            $('#cos_' + codsuc + '_' + x).text(data.reg.precio);
             $('#tot_' + codsuc + '_' + x).text(data.reg.subtotal);
             $('#codprod_' + codsuc + '_' + x).text(data.reg.codprod);
 
@@ -699,7 +705,7 @@ $('.BtnModificar').on('click',function(e) {
             $('#vmd_' + codsuc + '_' + x).text(data.vmd);
             $('#dias_' + codsuc + '_' + x).text(data.dias);
             $('#tran_' + codsuc + '_' + x).text(data.tran);
-    
+
         }
     });
     jqxhr.always(function() {
@@ -707,7 +713,7 @@ $('.BtnModificar').on('click',function(e) {
             window.location.reload();
         } else {
             Refrescar();
-        } 
+        }
     });
 });
 
@@ -719,7 +725,7 @@ function Refrescar() {
     var jqxhr = $.ajax({
         type:'POST',
         url: '../obtenerCodcliGrupo',
-        dataType: 'json', 
+        dataType: 'json',
         encode  : true,
         data: {codgrupo:codgrupo },
         success:function(data) {
@@ -729,37 +735,40 @@ function Refrescar() {
     jqxhr.always(function() {
         var arrCodsuc = resp.split('|');
         for (var z = 0; z < cont; z++) {
-            var codsuc = arrCodsuc[z];
+            var codsuc = arrCodsuc[z].toString().trim();
             var suger = 0;
-            var costo = 0;   
-            for (var i = 1; i < tableReg.rows.length-2; i++) {
-                var sugx = $('#sug_' + codsuc + "_" + i).text().replace(/,/g, '');
-                var totx = $('#tot_' + codsuc + "_" + i).text().replace(/,/g, '');
+            var costo = 0;
+            for (var i = 1; i < tableReg.rows.length-3; i++) {
+                var x = i.toString().trim();
+                var sugx = $('#sug_' + codsuc + "_" + x).text().replace(/,/g, '');
+                var totx = $('#tot_' + codsuc + "_" + x).text().replace(/,/g, '');
                 costo += parseFloat(totx);
                 suger += parseFloat(sugx);
             }
             $("#cos_"+codsuc).text(number_format(costo, 2, '.', ','));
             $("#sug_"+codsuc).text(number_format(suger, 0, '.', ','));
         }
-        for (var i = 1; i < tableReg.rows.length-2; i++) {
+        for (var i = 1; i < tableReg.rows.length-3; i++) {
             var suger = 0;
-            var costo = 0;   
+            var costo = 0;
             var codsuc = "";
+            var x = i.toString().trim();
             for (var z = 0; z < cont; z++) {
-                var codsuc = arrCodsuc[z];
-                var sugx = $('#sug_' + codsuc + "_" + i).text().replace(/,/g, '');
-                var totx = $('#tot_' + codsuc + "_" + i).text().replace(/,/g, '');
+                var codsuc = arrCodsuc[z].toString().trim();
+                var sugx = $('#sug_' + codsuc + "_" + x).text().replace(/,/g, '');
+                var totx = $('#tot_' + codsuc + "_" + x).text().replace(/,/g, '');
                 costo += parseFloat(totx);
                 suger += parseFloat(sugx);
-            }  
+            }
             $("#cosgrp_"+i).text(number_format(costo, 2, '.', ','));
             $("#suggrp_"+i).text(number_format(suger, 0, '.', ','));
         }
         suger = 0;
         costo = 0;
-        for (var i = 1; i < tableReg.rows.length-2; i++) {
-            var sugx = $('#suggrp_' + i).text().replace(/,/g, '');
-            var totx = $('#cosgrp_' + i).text().replace(/,/g, '');
+        for (var i = 1; i < tableReg.rows.length-3; i++) {
+            var x = i.toString().trim();
+            var sugx = $('#suggrp_' + x).text().replace(/,/g, '');
+            var totx = $('#cosgrp_' + x).text().replace(/,/g, '');
             costo += parseFloat(totx);
             suger += parseFloat(sugx);
         }
@@ -775,7 +784,7 @@ function ejecutarAgregar() {
     var codsuc = $('#idcodsuc').val();
     var barra = $('#idbarra').val();
     var ctipo = id +"_"+ codgrupo +"_"+ cant +"_"+ codsuc +"_"+ barra;
-    //alert(ctipo);
+    alert(ctipo);
     if (cant == 0 || barra == '') {
         alert("FALTAN PARAMETROS PARA AGREGAR UN PRODUCTO");
     } else {
@@ -795,13 +804,13 @@ function cargarProd() {
         var jqxhr = $.ajax({
             type:'POST',
             url: '../obtenerTablaCliMaestra',
-            dataType: 'json', 
+            dataType: 'json',
             encode  : true,
             data: { codgrupo:codgrupo, filtro:filtro },
             success:function(data) {
                 $("#tbodyProducto").empty();
                 $.each(data.resp, function(index, item){
-                   var valor = 
+                   var valor =
                     '<tr>' +
                       "<td style='padding-top: 10px;'>" +
                       "<span onclick='tdclick(event);'>" +
@@ -832,4 +841,5 @@ function tdclick(e) {
 <?php $__env->stopPush(); ?>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\intra.icompras\aplication\resources\views/isacom/pedgrupo/edit.blade.php ENDPATH**/ ?>

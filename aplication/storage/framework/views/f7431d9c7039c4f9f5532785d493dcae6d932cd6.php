@@ -74,8 +74,8 @@
 					</td>
 					<td><?php echo e($t->id); ?></td>
 					<td><?php echo e($t->idpedgrupo); ?></td>
-					<td><?php echo e(date('d-m-Y H:i:s', strtotime($t->fecha))); ?></td>
-					<td><?php echo e(date('d-m-Y H:i:s', strtotime($t->fecenviado))); ?></td>
+					<td><?php echo e(date('d-m-Y H:i', strtotime($t->fecha))); ?></td>
+					<td><?php echo e(date('d-m-Y H:i', strtotime($t->fecenviado))); ?></td>
 					<?php if($t->estado == 'NUEVO'): ?>
 						<td style="color: red;"><?php echo e($t->estado); ?></td>
 					<?php else: ?>

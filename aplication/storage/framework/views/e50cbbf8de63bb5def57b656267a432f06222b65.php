@@ -67,8 +67,8 @@
 
 					</td>
 					<td><?php echo e($t->pgid); ?></td>
-					<td><?php echo e(date('d-m-Y H:i:s', strtotime($t->fecha))); ?></td>
-					<td><?php echo e(date('d-m-Y H:i:s', strtotime($t->enviado))); ?></td>
+					<td><?php echo e(date('d-m-Y H:i', strtotime($t->fecha))); ?></td>
+					<td><?php echo e(date('d-m-Y H:i', strtotime($t->enviado))); ?></td>
 					<?php if($t->estado == 'NUEVO'): ?>
 						<td style="color: red;"><?php echo e($t->estado); ?></td>
 					<?php else: ?>

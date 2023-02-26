@@ -72,7 +72,12 @@
 						</td>
 						<td class="hidden-xs">
                             <div align="center">
-                            	<img src="http://isaweb.isbsistemas.com/public/storage//<?php echo e($cliente->rutaimg); ?>" class="img-responsive" alt="" width="100%">
+                            	<img src="http://isaweb.isbsistemas.com/public/storage//<?php echo e($cliente->rutaimg); ?>" 
+                            	class="img-responsive" 
+                            	alt="icompras360" 
+                            	width="100%"
+                            	style="border: 2px solid #D2D6DE;"
+                            	oncontextmenu="return false">
                             </div>
                         </td>
 						<td>
@@ -138,12 +143,12 @@
 
 						<?php if( date('d-m-Y', strtotime($feccatalogo)) == date('d-m-Y') ): ?>
 							<td>
-								<?php echo e(date('d-m-Y H:i:s', strtotime($feccatalogo))); ?>
+								<?php echo e(date('d-m-Y H:i', strtotime($feccatalogo))); ?>
 
 							</td>
 						<?php else: ?>
 							<td style="color: red;">
-								<?php echo e(date('d-m-Y H:i:s', strtotime($feccatalogo))); ?>
+								<?php echo e(date('d-m-Y H:i', strtotime($feccatalogo))); ?>
 
 							</td>
 						<?php endif; ?>

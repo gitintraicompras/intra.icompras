@@ -28,7 +28,7 @@
                     type="text"
                     autofocus
                     name="filtro"
-                    value="{{$filtro}}"
+                    value="<?php echo e($filtro); ?>"
                     style="margin-top: 25px;"
                     placeholder="Buscar por descripción o referencia"
                     aria-label="Search"
@@ -85,3 +85,4 @@
 
 
 
+<?php /**PATH C:\xampp\htdocs\intra.icompras\aplication\resources\views/isacom/pedido/buscar.blade.php ENDPATH**/ ?>

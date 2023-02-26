@@ -17,7 +17,10 @@
 
             <span class="input-group-addon" style="border:0px; "></span>
             <span class="input-group-addon hidden-xs">Iva:</span>
-            <input readonly type="text" class="form-control" value="{{number_format($tabla->iva, 2, '.', ',')}}" style="color: #000000; text-align: right; background: #F7F7F7;">
+            <input readonly type="text"
+                class="form-control"
+                value="{{number_format($tabla->iva, 2, '.', ',')}}"
+                style="color: #000000; text-align: right; background: #F7F7F7;">
 
         </div>
 
@@ -32,7 +35,11 @@
 
             <span class="input-group-addon" style="border:0px; "></span>
             <span class="input-group-addon">Total:</span>
-            <input readonly type="text" class="form-control" value="{{number_format($tabla->total, 2, '.', ',')}}" style="color: #000000; text-align: right; background: #F7F7F7;">
+            <b><input readonly
+                type="text"
+                class="form-control"
+                value="{{number_format($tabla->total, 2, '.', ',')}}"
+                style="color: #000000; text-align: right; background: #F7F7F7;"></b>
         </div>
 
         <div style="margin-top: 4px;">
@@ -57,25 +64,32 @@
                 </th>
                 <th title="CANTIDAD">CANT</th>
                 <th>PRECIO</th>
+                <th>IVA</th>
                 <th>SUBTOTAL</th>
             </thead>
-          
+
             @foreach ($tabla2 as $t)
+            @php
+                $iva = 0;
+                if ($t->impuesto > 0) {
+                    $iva = $cfg->valoriva;
+                }
+            @endphp
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>
                     <div align="center">
 
                         <a href="{{URL::action('PedidoController@verprod',$t->referencia)}}">
-                
-                            <img src="http://isaweb.isbsistemas.com/public/storage/prod/{{NombreImagen($t->referencia)}}" 
-                            width="100%" 
-                            height="100%" 
-                            class="img-responsive" 
+
+                            <img src="http://isaweb.isbsistemas.com/public/storage/prod/{{NombreImagen($t->referencia)}}"
+                            width="100%"
+                            height="100%"
+                            class="img-responsive"
                             alt="icompras360"
-                            style="border: 2px solid #D2D6DE;" 
+                            style="border: 2px solid #D2D6DE;"
                             oncontextmenu="return false">
-                
+
                         </a>
 
                     </div>
@@ -91,25 +105,30 @@
                     </span>
                     <span title="CODIGO DEL PRODUCTO">
                         <i class="fa fa-cube">
-                            {{$t->codprod}}    
+                            {{$t->codprod}}
                         </i><br>
                     </span>
                     <span title="MARCA DEL PRODUCTO">
                         <i class="fa fa-shield">
-                            {{LeerProdcaract($t->referencia, 'marca', 'POR DEFINIR')}}    
+                            {{LeerProdcaract($t->referencia, 'marca', 'POR DEFINIR')}}
                         </i>
-                    </span> 
+                    </span>
                 </td>
                 <td align="right">{{number_format($t->cantidad, 0, '.', ',')}}</td>
                 <td align="right">{{number_format($t->precio, 2, '.', ',')}}</td>
+                <td align="right">{{number_format($iva, 2, '.', ',')}}</td>
                 <td align="right">{{number_format($t->subtotal, 2, '.', ',')}}</td>
             </tr>
             @endforeach
-          
+
         </table>
+        <span title="TASA CAMBIARIA">
+            <b> TASA: *** {{number_format($tabla->factorcambiario, 2, '.', ',')}} *** </b>
+        </span>
     </div>
 </div>
 <!-- REGRESAR -->
+<br>
 <button type="button" class="btn-normal" onclick="history.back(-1)">Regresar</button>
 
 @push ('scripts')

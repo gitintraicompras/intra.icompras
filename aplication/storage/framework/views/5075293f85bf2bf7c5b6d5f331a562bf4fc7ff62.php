@@ -25,7 +25,7 @@
                 <input readonly 
                     type="text" 
                     class="form-control hidden-xs" 
-                    value="<?php echo e($tabla->estado); ?> - <?php echo e($tabla->origen); ?>" 
+                    value="<?php echo e($tabla->estado); ?> | <?php echo e($tabla->origen); ?>" 
                     style="color: #000000">
 
                 <span class="input-group-addon hidden-xs" style="border:0px; "></span>

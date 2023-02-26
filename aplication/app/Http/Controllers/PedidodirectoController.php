@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Http\Requests; 
+use App\Http\Requests;
 use App\User;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UsuarioFormRequest;
@@ -17,7 +17,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use DB;
 use App\tpmaestra;
 use App\CustomClasses\ColectionPaginate;
-          
+
 class PedidodirectoController extends Controller
 {
     public function __construct() {
@@ -29,7 +29,7 @@ class PedidodirectoController extends Controller
             $filtro = trim($request->get('filtro'));
             $codcli = sCodigoClienteActivo();
             vEliminarPedidoBlanco($codcli);
-            $tipedido = "D"; 
+            $tipedido = "D";
             $tabla=DB::table('pedido')
             ->where('codcli','=',$codcli)
             ->where('tipedido','=',$tipedido)
@@ -57,7 +57,7 @@ class PedidodirectoController extends Controller
             $subtitulo = "PEDIDOS DIRECTO (".$ped->contador.")";
             return view('isacom.pedidodirecto.index' ,["menu" => "Pedidos",
                                                        "cfg" => DB::table('maecfg')->first(),
-                                                       "tabla" => $tabla, 
+                                                       "tabla" => $tabla,
                                                        "filtro" => $filtro,
                                                        "codcli" => $codcli,
                                                        "subtitulo" => $subtitulo]);
@@ -69,7 +69,7 @@ class PedidodirectoController extends Controller
         $s1 = explode('-', $id );
         $codcli = sCodigoClienteActivo();
     	$subtitulo = "CONSULTA DE PEDIDO";
-	
+
     	// TABLA DE PEDIDO
         $tabla = DB::table('pedido')
 	    ->where('id','=',$id)
@@ -80,12 +80,12 @@ class PedidodirectoController extends Controller
         ->where('id','=',$id)
         ->orderBy('item','asc')
         ->get();
-        
+
         $subtitulo ="CONSULTA DE PEDIDO DIRECTO (".$tabla->marca." - REPOSICION: ".$tabla->reposicion.")";
         return view('isacom.pedidodirecto.show',["menu" => "Pedidos",
                                                  "cfg" => DB::table('maecfg')->first(),
-                                                 "tabla" => $tabla, 
-                                                 "tabla2" => $tabla2, 
+                                                 "tabla" => $tabla,
+                                                 "tabla2" => $tabla2,
                                                  "subtitulo" => $subtitulo,
                                                  "id" => $id] );
     }
@@ -94,14 +94,14 @@ class PedidodirectoController extends Controller
 
         $s1 = explode('-', $id );
         if (count($s1) == 1) {
-            $tpactivo = "MAESTRO";  
+            $tpactivo = "MAESTRO";
         } else {
             $id = $s1[0];
             $tpactivo = $s1[1];
         }
         $codcli = sCodigoClienteActivo();
         $subtitulo = "EXPORTAR PEDIDO";
-    
+
         // TABLA DE PEDIDO
         $tabla = DB::table('pedido')
                 ->where('id','=',$id)
@@ -122,7 +122,7 @@ class PedidodirectoController extends Controller
         foreach ($provs as $prov) {
             if (empty($prov->codprove_adm))  {
                 // FALTAN PARAMETROS DE EXPORTACION
-                $arrayProv[] = [ 'codprove' => $prov->codprove, 
+                $arrayProv[] = [ 'codprove' => $prov->codprove,
                                  'exportado' => '0'];
                 continue;
             }
@@ -131,7 +131,7 @@ class PedidodirectoController extends Controller
             ->where('codprove','=',$prov->codprove)
             ->first();
             if ($pedren) {
-                $arrayProv[] = [ 'codprove' => $prov->codprove, 
+                $arrayProv[] = [ 'codprove' => $prov->codprove,
                                  'exportado' => $pedren->exportado ];
             }
         }
@@ -146,8 +146,8 @@ class PedidodirectoController extends Controller
         return view('isacom.pedido.exportar',["menu" => "Pedidos",
                                               "cfg" => DB::table('maecfg')->first(),
                                               "invent" => $invent,
-                                              "tabla" => $tabla, 
-                                              "tabla2" => $tabla2, 
+                                              "tabla" => $tabla,
+                                              "tabla2" => $tabla2,
                                               "subtitulo" => $subtitulo,
                                               "tpactivo" => $tpactivo,
                                               "arrayProv" => $arrayProv,
@@ -196,12 +196,12 @@ class PedidodirectoController extends Controller
                 if ($exportado > 0)  {
                     $sumaExportado++;
                     DB::table('docexportado')->insert([
-                        'codcli' => $codcli, 
-                        'coddoc' => $id, 
-                        'tipo' => 'PED', 
+                        'codcli' => $codcli,
+                        'coddoc' => $id,
+                        'tipo' => 'PED',
                         'fecha' => date("Y-m-d H:i:s"),
-                        'codprove' => $codprove[$x], 
-                        'codprove_adm' => $prov->codprove_adm, 
+                        'codprove' => $codprove[$x],
+                        'codprove_adm' => $prov->codprove_adm,
                         'factor' => $tasa[$x],
                         'codmoneda' => $codmoneda[$x],
                         'usuario' => Auth::user()->name,
@@ -219,20 +219,20 @@ class PedidodirectoController extends Controller
 
 	public function destroy(Request $request, $id) {
         try {
-            DB::beginTransaction(); 
+            DB::beginTransaction();
             $accion = $request->accion;
             $codcli = $request->codcli;
             if ($accion == 'TOMAR') {
-            
+
                 DB::table('pedido')
                 ->where('estado','=','NUEVO')
                 ->where('codcli','=',$codcli)
-                ->update(array("estado" => "ABIERTO")); 
+                ->update(array("estado" => "ABIERTO"));
 
                 DB::table('pedido')
                 ->where('id','=',$id)
-                ->update(array("estado" => "NUEVO")); 
-                session()->flash('message', 'Pedido '.$id.' tomado satisfactoriamente');  
+                ->update(array("estado" => "NUEVO"));
+                session()->flash('message', 'Pedido '.$id.' tomado satisfactoriamente');
 
             } else {
                 $codcli = sCodigoClienteActivo();
@@ -250,9 +250,9 @@ class PedidodirectoController extends Controller
                             DB::table('pedgrupo')
                             ->where('id','=',$idpedgrupo)
                             ->delete();
-                        } 
+                        }
                     }
-                } 
+                }
                 DB::table('pedren')
                 ->where('id','=',$id)
                 ->delete();
@@ -282,8 +282,8 @@ class PedidodirectoController extends Controller
             ->first();
             if ($gruporen)
                 $btnguardar = 1;
-        } 
-        if ($tipo == 'G') 
+        }
+        if ($tipo == 'G')
             $btnguardar = 1;
 
         $subtitulo = "PEDIDO";
@@ -330,7 +330,7 @@ class PedidodirectoController extends Controller
 
     public function create() {
         $codcli = sCodigoClienteActivo();
-        $tipedido = (Auth::user()->userPedDirecto == 1 ) ? "D" : "N"; 
+        $tipedido = (Auth::user()->userPedDirecto == 1 ) ? "D" : "N";
         $id = iIdUltPedAbierto($codcli, $tipedido);
         if ( $id > 0) {
              return Redirect::to('/pedido/catalogo/C');
@@ -345,7 +345,7 @@ class PedidodirectoController extends Controller
             ->where('status','=', 'ACTIVO')
             ->where('codcli','=', $codcli)
             ->where('id','=', $codgrupo)
-            ->first(); 
+            ->first();
             if ($grpren) {
                 $pedgrupo = DB::table('pedgrupo')
                 ->where('estado','=', 'NUEVO')
@@ -362,10 +362,10 @@ class PedidodirectoController extends Controller
                                                    "pedgrupo" => $pedgrupo,
                                                    "cfg" => DB::table('maecfg')->first(),
                                                    "subtitulo" => $subtitulo]);
-    } 
+    }
 
     public function store(Request $request) {
-        set_time_limit(500); 
+        set_time_limit(500);
         $procesar = 0;
         $codcli = sCodigoClienteActivo();
         $reposicion = $request->reposicion;
@@ -400,7 +400,7 @@ class PedidodirectoController extends Controller
                 $cantran = verificarProdTransito($inv->barra, $codcli, "");
                 $pedir = intval(($inv->vmd * $reposicion) - $cantran);
                 if ($pedir == 0) {
-                    if ($cantsug > 0) 
+                    if ($cantsug > 0)
                         $pedir = $cantsug;
                 }
                 $pedir = $pedir - $inv->cantidad;
@@ -408,11 +408,11 @@ class PedidodirectoController extends Controller
                 if ($pedir > 0) {
                     $procesar = 1;
                     DB::table('pedren')->insert([
-                        'id' => $id, 
-                        'codprod' => $inv->codprod, 
-                        'desprod' => $inv->desprod, 
-                        'cantidad' => $pedir, 
-                        'precio' => $inv->costo, 
+                        'id' => $id,
+                        'codprod' => $inv->codprod,
+                        'desprod' => $inv->desprod,
+                        'cantidad' => $pedir,
+                        'precio' => $inv->costo,
                         'barra' => $inv->barra,
                         'codprove' => $codmarca,
                         'regulado' => 'N',
@@ -440,10 +440,10 @@ class PedidodirectoController extends Controller
             }
             if ($procesar > 0)
                 CalculaTotalesPedido($id);
-            else 
+            else
                 return back()->with('warning', 'No encontro productos con los parametros actuales!');
         } else {
-            return back()->with('warning', 'Tabla inventario no existe!');       
+            return back()->with('warning', 'Tabla inventario no existe!');
         }
         return Redirect::to('/pedidodirecto');
     }
@@ -508,13 +508,13 @@ class PedidodirectoController extends Controller
                                              "cfg" => DB::table('maecfg')->first(),
                                              "cliente" => $cliente,
                                              "grupo" => $grupo,
-                                             "tabla" => $tabla, 
+                                             "tabla" => $tabla,
                                              "provs" => $provs,
                                              "tcmaestra" => $tcmaestra,
                                              "tpmaestra" => $tpmaestra,
                                              "subtitulo" => $subtitulo,
                                              "tipo" => $tipo,
-                                             "maecatalogo" => $maecatalogo, 
+                                             "maecatalogo" => $maecatalogo,
                                              "codcli" => $codcli,
                                              "inv" => $inv,
                                              "barra" => $barra]);
@@ -552,11 +552,11 @@ class PedidodirectoController extends Controller
                     return back()->with('warning', 'Barra: '.$barra.' Este producto ya existe en el pedido!!!');
                 }
                 DB::table('pedren')->insert([
-                    'id' => $id, 
-                    'codprod' => $codprod, 
-                    'desprod' => $desprod, 
-                    'cantidad' => $cant, 
-                    'precio' => $precio, 
+                    'id' => $id,
+                    'codprod' => $codprod,
+                    'desprod' => $desprod,
+                    'cantidad' => $cant,
+                    'precio' => $precio,
                     'barra' => $barra,
                     'codprove' => $marca,
                     'regulado' => $regulado,
@@ -642,9 +642,9 @@ class PedidodirectoController extends Controller
         $codalterno = trim($request->get('codalterno'));
         $color = $request->get('color');
         $codcli = sCodigoClienteActivo();
-        $existe = 0; 
+        $existe = 0;
         $invent = 'inventario_'.$codcli;
-        //$msg = $barra ." - ". $codalterno 
+        //$msg = $barra ." - ". $codalterno
         $msg = '';
         $prodalterno = DB::table('prodalterno')
         ->where('codcli','=',$codcli)
@@ -657,19 +657,19 @@ class PedidodirectoController extends Controller
                     ->where('codprod', '=', $codalterno)
                     ->where('cuarentena', '=', '0')
                     ->first();
-                    if ($invent) 
-                        $existe = 1; 
+                    if ($invent)
+                        $existe = 1;
                 }
                 if ($existe == 1) {
                     DB::table('prodalterno')->insertGetId([
-                        'barra' => $barra, 
-                        'codcli' => $codcli, 
+                        'barra' => $barra,
+                        'codcli' => $codcli,
                         'codalterno' => $codalterno
                     ]);
                 } else {
                     $msg = "CODIGO ALTERNO NO EXISTE";
                 }
-            } 
+            }
         } else {
             if ($codalterno == "") {
                 DB::table('prodalterno')
@@ -682,21 +682,21 @@ class PedidodirectoController extends Controller
                     ->where('codprod', '=', $codalterno)
                     ->where('cuarentena', '=', '0')
                     ->first();
-                    if ($invent) 
-                        $existe = 1; 
+                    if ($invent)
+                        $existe = 1;
                 }
                 if ($existe == 1) {
                     if ($codalterno != $prodalterno->codalterno) {
                         DB::table('prodalterno')
                         ->where('codcli','=',$codcli)
                         ->where('barra','=',$barra)
-                        ->update(array("codalterno" => $codalterno));                    
+                        ->update(array("codalterno" => $codalterno));
                     }
                 } else {
                     $msg = "CODIGO ALTERNO NO EXISTE";
-                } 
+                }
             }
-        } 
+        }
         return response()->json(['msg' => $msg ]);
     }
 
@@ -714,7 +714,7 @@ class PedidodirectoController extends Controller
         $tipedido = $request->get('tipedido');
         $codcli = sCodigoClienteActivo();
         $usuario = Auth::user()->email;
-          
+
         $mensaje = "";
         try {
             DB::beginTransaction();
@@ -734,7 +734,7 @@ class PedidodirectoController extends Controller
                     $mensaje .= "ID: ".$id.' - MARCA: '.$marca. "-> NO ENVIADO ";
                     log::info("PEDIDO DIRECTO: ".$id. " MARCA: ".$marca." ENVIO ERROR");
                 }
-            } else { 
+            } else {
                 // PEDIDOS A PROVEEDORES
                 $provs = TablaMaecliproveActiva("");
                 $arrayProv = array();
@@ -764,15 +764,15 @@ class PedidodirectoController extends Controller
                         $tipocata = $maeprove->tipocata;
                         $modoEnvioPedido = $maeprove->modoEnvioPedido;
                         $modoconexion = $maeprove->modoconexion;
-                        $ftp = $maeprove->ftpserver; 
-                        $ftpuser = $maeprove->ftpuser; 
-                        $ftppass = $maeprove->ftppass; 
-                        $ftppasv = $maeprove->ftppasv; 
+                        $ftp = $maeprove->ftpserver;
+                        $ftpuser = $maeprove->ftpuser;
+                        $ftppass = $maeprove->ftppass;
+                        $ftppasv = $maeprove->ftppasv;
 
-                        $host = $maeprove->host; 
-                        $basedato = $maeprove->basedato; 
-                        $username = $maeprove->username; 
-                        $clave = $maeprove->password; 
+                        $host = $maeprove->host;
+                        $basedato = $maeprove->basedato;
+                        $username = $maeprove->username;
+                        $clave = $maeprove->password;
 
                         $pedido = DB::table('pedido')
                         ->where('id','=', $id)
@@ -820,7 +820,7 @@ class PedidodirectoController extends Controller
                             log::info("ENVIO -> ID: ".$id." CODPROV: ".$codprove.' WARNING: EN BLANCO');
                             continue;
                         }
-                        switch ($modoEnvioPedido) { 
+                        switch ($modoEnvioPedido) {
                             case 'MYSQL':
                                 try {
                                     if (empty($host)) {
@@ -840,13 +840,13 @@ class PedidodirectoController extends Controller
                                         Config::set('database.default', 'mysql2');
                                         DB::reconnect('mysql2');
                                         log::info("CONEXION REMOTA (MYSQL1)     -> OK: ".$maeprove->descripcion);
-                                    } catch (Exception $e) { 
+                                    } catch (Exception $e) {
                                         log::info("ERROR ENVIO (MYSQL1): ".$e);
                                         $mensaje.= $maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                         break;
                                     }
                                     $enviado = 0;
-                                    try { 
+                                    try {
                                         // VERIFICA SI EXISTE UN ID REPETIDO
                                         $idrepetido = DB::table('pedido')
                                         ->where('origen','=', 'C-ICOMPRAS ID: '.$id)
@@ -867,12 +867,12 @@ class PedidodirectoController extends Controller
 
                                         $idnew = DB::table('pedido')->insertGetId([
                                             'codcli' => $codigo,
-                                            'fecha' => date("Y-m-d H:i:s"), 
-                                            'estado' => 'NUEVO', 
+                                            'fecha' => date("Y-m-d H:i:s"),
+                                            'estado' => 'NUEVO',
                                             'fecenviado' => date("Y-m-d H:i:s"),
-                                            'fecprocesado' => date("Y-m-d H:i:s"), 
-                                            'origen' => 'C-ICOMPRAS ID: '.$id, 
-                                            'codvend' => 'ICOMPRAS', 
+                                            'fecprocesado' => date("Y-m-d H:i:s"),
+                                            'origen' => 'C-ICOMPRAS ID: '.$id,
+                                            'codvend' => 'ICOMPRAS',
                                             'usuario' => $usuario,
                                             'tipedido' => 'N',
                                             'nomcli' => $pedido->nomcli,
@@ -896,7 +896,7 @@ class PedidodirectoController extends Controller
                                         ]);
                                         $enviado = 1;
                                         log::info("ENVIO PEDIDO REMOTA (MYSQL2) -> OK: ".$maeprove->descripcion);
-                                    } catch (Exception $e) { 
+                                    } catch (Exception $e) {
                                         log::info("ERROR ENVIO (MYSQL2): ".$e);
                                         $mensaje.= $maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                         break;
@@ -909,11 +909,11 @@ class PedidodirectoController extends Controller
                                                 if ($codprove == 'TPDMARI') {
                                                     // ESTRUCTURA DE TABLA VERSION VIEJA
                                                     DB::table('pedren')->insert([
-                                                        'id' => $idnew, 
-                                                        'codprod' => $pr->codprod, 
-                                                        'desprod' => $pr->desprod, 
-                                                        'cantidad' => $pr->cantidad, 
-                                                        'precio' => $pr->precio, 
+                                                        'id' => $idnew,
+                                                        'codprod' => $pr->codprod,
+                                                        'desprod' => $pr->desprod,
+                                                        'cantidad' => $pr->cantidad,
+                                                        'precio' => $pr->precio,
                                                         'barra' => $pr->barra,
                                                         'tipocatalogo' => 'PRINCIPAL',
                                                         'regulado' => $pr->regulado,
@@ -936,11 +936,11 @@ class PedidodirectoController extends Controller
                                                 } else {
                                                     // ESTRUCTURA DE TABLA NUEVA
                                                     DB::table('pedren')->insert([
-                                                        'id' => $idnew, 
-                                                        'codprod' => $pr->codprod, 
-                                                        'desprod' => $pr->desprod, 
-                                                        'cantidad' => $pr->cantidad, 
-                                                        'precio' => $pr->precio, 
+                                                        'id' => $idnew,
+                                                        'codprod' => $pr->codprod,
+                                                        'desprod' => $pr->desprod,
+                                                        'cantidad' => $pr->cantidad,
+                                                        'precio' => $pr->precio,
                                                         'barra' => $pr->barra,
                                                         'tipocatalogo' => 'PRINCIPAL',
                                                         'regulado' => $pr->regulado,
@@ -962,7 +962,7 @@ class PedidodirectoController extends Controller
                                                         "codcli" => $codigo
                                                     ]);
                                                 }
-                                            } catch (Exception $e) { 
+                                            } catch (Exception $e) {
                                                 $errorinexperado = -1;
                                                 break;
                                             }
@@ -978,7 +978,7 @@ class PedidodirectoController extends Controller
                                             DB::table('pedido')
                                             ->where('id', '=', $idnew)
                                             ->update(array("estado" => "ENVIADO"));
-                                        } catch (Exception $e) { 
+                                        } catch (Exception $e) {
                                             log::info("ERROR ENVIO (MYSQL4): ".$e);
                                             $mensaje.= $maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                             break;
@@ -998,7 +998,7 @@ class PedidodirectoController extends Controller
                                         }
                                     }
                                 }
-                                catch (Exception $e) { 
+                                catch (Exception $e) {
                                     $mensaje .= $maeprove->descripcion. "-> NO ENVIADO: ".$e. "| ";
                                 }
                                 break;
@@ -1013,7 +1013,7 @@ class PedidodirectoController extends Controller
                                         ->delete();
                                     }
                                     DB::table('alcabalacb')->insert([
-                                        'id' => $id, 
+                                        'id' => $id,
                                         'codcli' => $codcli,
                                         'codprove' => $codprove,
                                         'codsede' => $codsede
@@ -1024,7 +1024,7 @@ class PedidodirectoController extends Controller
                                         log::info("ALCABALA PEDIDO: ".$id. " AGREGO AL ALCABALA COBECA");
                                         log::info("PEDIDO: ".$id. " CODPROV: ".$maeprove->descripcion." ENVIADO OK");
                                     }
-                                } catch (Exception $e) { 
+                                } catch (Exception $e) {
                                     $mensaje .= $maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                 }
                                 break;
@@ -1084,7 +1084,7 @@ class PedidodirectoController extends Controller
                                                 $ped = substr($ped,strlen($ped)-2,2);
                                                 $pedidoDestinoFtp = "factu".$ped.".txt";
                                             }
-                                            
+
                                             if ($error)  {
                                                 $mensaje .= $maeprove->descripcion. "-> NO ENVIADO | ";
                                                 break;
@@ -1116,24 +1116,24 @@ class PedidodirectoController extends Controller
                                                         // GUARDAR EL MONTO DEL AHORRO EN EL HISTORIAL
                                                         vGrabarAhorroHistorial($codcli, $dMontoAhorro);
                                                         log::info("PEDIDO       : ".$id. " CODPROV: ".$maeprove->descripcion." ENVIADO OK");
-                                                    } else {        
+                                                    } else {
                                                         $mensaje .= $maeprove->descripcion. "-> NO ENVIADO | ";
                                                         break;
-                                                    }                  
+                                                    }
                                                 } else {
                                                     $mensaje.=$maeprove->descripcion. "-> NO ENVIADO | ";
                                                     break;
                                                 }
                                             }
-                                        } catch (Exception $e) { 
+                                        } catch (Exception $e) {
                                             log::info("ERROR ENVIO (DRONENA): ".$e);
                                             $mensaje.=$maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                         }
                                         break;
                                     case 'DROLANCA':
                                         try {
-                                            $ftpuser = $tablaclieprove->usuario; 
-                                            $ftppass = $tablaclieprove->clave; 
+                                            $ftpuser = $tablaclieprove->usuario;
+                                            $ftppass = $tablaclieprove->clave;
                                             $archivo = 'PED'.$codcli.'-'.$codprove.'-'.$id.'.txt';
                                             $num = "00000".$id;
                                             $num = substr($num,strlen($num)-5,5);
@@ -1175,15 +1175,15 @@ class PedidodirectoController extends Controller
                                                $mensaje .= $maeprove->descripcion. "-> NO ENVIADO | ";
                                                break;
                                             }
-                                        } catch (Exception $e) { 
+                                        } catch (Exception $e) {
                                             log::info("ERROR ENVIO (DROLANCA): ".$e);
                                             $mensaje.=$maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                         }
                                         break;
                                     case 'DROCERCA':
                                         try {
-                                            $ftpuser = $tablaclieprove->usuario; 
-                                            $ftppass = $tablaclieprove->clave; 
+                                            $ftpuser = $tablaclieprove->usuario;
+                                            $ftppass = $tablaclieprove->clave;
                                             $codigo = $tablaclieprove->codigo;
                                             $archivo = 'PED'.$codcli.'-'.$codprove.'-'.$id.'.txt';
                                             $num = "000000".$id;
@@ -1226,7 +1226,7 @@ class PedidodirectoController extends Controller
                                                $mensaje .= $maeprove->descripcion. "-> NO ENVIADO | ";
                                                break;
                                             }
-                                        } catch (Exception $e) { 
+                                        } catch (Exception $e) {
                                             log::info("ERROR ENVIO (DROCERCA): ".$e);
                                             $mensaje.=$maeprove->descripcion. "-> NO ENVIADO, ".$e. "| ";
                                         }
@@ -1234,7 +1234,7 @@ class PedidodirectoController extends Controller
                                 }
                         }
                     }
-                } 
+                }
                 vUpdateEstadoPedido($id);
             }
             DB::commit();
@@ -1245,9 +1245,9 @@ class PedidodirectoController extends Controller
 
         if ($mensaje == "")
             session()->flash('message', 'Pedido '.$id.' enviado satisfactoriamente');
-        else 
+        else
             session()->flash('error', $mensaje);
-        
+
         return Redirect::to('/pedidodirecto');
     }
 
@@ -1268,7 +1268,7 @@ class PedidodirectoController extends Controller
         }
         if ($mensaje == "")
             session()->flash('message', 'Pedido '.$id.' guardado satisfactoriamente');
-        else 
+        else
             session()->flash('error', $mensaje);
         return Redirect::to('/pedidodirecto');
     }
@@ -1301,7 +1301,7 @@ class PedidodirectoController extends Controller
             if ($tabla->factor != 1)
                 $factor = $tabla->factor;
         }
-      
+
         // TABLA DE RENGLONES DE PEDIDO
         $cliente = DB::table('maecliente')
         ->where('codcli','=',$codcli)
@@ -1329,8 +1329,8 @@ class PedidodirectoController extends Controller
         $data = [
             "titulo" => $titulo,
             "subtitulo" => $subtitulo,
-            "tabla" => $tabla, 
-            "tabla2" => $tabla2, 
+            "tabla" => $tabla,
+            "tabla2" => $tabla2,
             "impuesto" => $dImpuesto,
             "total" => $dTotal,
             "moneda" => $moneda,
@@ -1359,8 +1359,8 @@ class PedidodirectoController extends Controller
         $item = $request->get('item');
         $marcar = $request->get('marcar');
 
-  
-        log::info($item .'-'. $marcar);
+
+        //log::info($item .'-'. $marcar);
 
         if ($marcar == "") {
             $pedren = DB::table('pedren')
@@ -1400,8 +1400,8 @@ class PedidodirectoController extends Controller
             ->orderBy("desprod","asc")
             ->get();
             if ($tabla) {
-                $resp = $tabla;  
-            } 
+                $resp = $tabla;
+            }
         }
         return response()->json(['resp' => $resp ]);
     }

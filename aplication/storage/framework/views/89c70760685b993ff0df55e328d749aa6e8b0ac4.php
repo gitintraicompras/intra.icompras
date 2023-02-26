@@ -1,5 +1,4 @@
-
-<?php $__env->startSection('contenido'); ?> 
+<?php $__env->startSection('contenido'); ?>
 <?php
   $moneda = Session::get('moneda', 'BSS');
   $factor = RetornaFactorCambiario('', $moneda);
@@ -9,12 +8,12 @@
 <div class="row" style="margin-bottom: 5px;">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 		<a href="<?php echo e(url('/pedido/create')); ?>">
-			<button class="btn-normal" 
-				data-toggle="tooltip" 
+			<button class="btn-normal"
+				data-toggle="tooltip"
 				title="Pedido nuevo"
 				style="width: 120px;">
 				Pedido Nuevo
-			</button> 
+			</button>
 		</a>
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -48,40 +47,42 @@
 				</thead>
 				<?php $__currentLoopData = $tabla; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 				<tr>
-			
+
 					<td><?php echo e($loop->iteration); ?></td>
 					<td>
-						<!-- CONSULTA DE PEDIDO --> 
+						<!-- CONSULTA DE PEDIDO -->
                         <a href="<?php echo e(URL::action('PedidoController@show',$t->id)); ?>">
                         	<button class="btn btn-pedido fa fa-file-o" data-toggle="tooltip" title="Consultar pedido">
                         	</button>
                         </a>
 
 						<!-- ELIMINAR PEDIDO -->
-						<a href="" 
-							data-target="#modal-delete-<?php echo e($t->id); ?>" 
+						<a href=""
+							data-target="#modal-delete-<?php echo e($t->id); ?>"
 							data-toggle="modal">
-							<button class="btn btn-pedido fa fa-trash-o" 
-								data-toggle="tooltip" 
+							<button class="btn btn-pedido fa fa-trash-o"
+								data-toggle="tooltip"
 								title="Eliminar pedido">
 							</button>
 						</a>
 
-						<?php if($tipedido == 'N'): ?>
-							<?php if($botonExportar): ?>
+                        <?php if($botonExportar): ?>
+                            <?php if($t->tipedido == 'N' ): ?>
 								<!-- EXPORTAR PEDIDO -->
 								<a href="<?php echo e(URL::action('PedidoController@exportar',$t->id)); ?>">
-		                        	<button class="btn btn-pedido fa fa-share-square-o" data-toggle="tooltip" title="Exportar pedido">
+		                        	<button class="btn btn-pedido fa fa-share-square-o"
+                                        data-toggle="tooltip"
+                                        title="Exportar pedido">
 		                        	</button>
 		                        </a>
 	                        <?php endif; ?>
                         <?php endif; ?>
-                
-                        <?php if($t->estado == 'NUEVO' || $t->estado == 'PARCIAL'): ?> 
+
+                        <?php if($t->estado == 'NUEVO' || $t->estado == 'PARCIAL'): ?>
 							<!-- MODIFICAR PEDIDO -->
 							<a href="<?php echo e(URL::action('PedidoController@edit',$t->id)); ?>">
-								<button class="btn btn-pedido fa fa-pencil" 
-									data-toggle="tooltip" 
+								<button class="btn btn-pedido fa fa-pencil"
+									data-toggle="tooltip"
 									title="Modificar pedido">
 								</button>
 							</a>
@@ -141,4 +142,5 @@ gtag('config', 'G-CE7C5GBHWG');
 <?php $__env->stopPush(); ?>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\intra.icompras\aplication\resources\views/isacom/pedido/index.blade.php ENDPATH**/ ?>

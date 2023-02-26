@@ -2670,7 +2670,7 @@
                                                         color: white;
                                                         background-color: black;"
                                                         title="DESCUENTO DE PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?>% => <?php echo e($upe); ?>">
-                                                        DP: <?php echo e($dpe); ?> => <?php echo e($upe); ?>
+                                                        DP: <?php echo e(QuitarCerosDecimales($dpe)); ?> % => <?php echo e($upe); ?>
 
                                                     </div>
                                                 <?php else: ?>
@@ -2920,7 +2920,7 @@
                                                             background-color: #0061A8;
                                                             margin-right: 4px;"
                                                             title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                            <?php echo e($dpe); ?> %
+                                                            <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                         </span>
                                                         <span style="font-size: 10px;">
                                                             UP: 
@@ -3376,7 +3376,7 @@
                                                             background-color: #0061A8;
                                                             margin-right: 4px;"
                                                             title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                            <?php echo e($dpe); ?> %
+                                                            <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                         </span>
                                                         <span style="font-size: 10px;">
                                                             UP: 
@@ -3838,7 +3838,7 @@
                                                         background-color: #0061A8;
                                                         margin-right: 4px;"
                                                         title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                        <?php echo e($dpe); ?> %
+                                                        <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                     </span>
                                                     <span style="font-size: 10px;">
                                                         UP: 
@@ -4556,7 +4556,7 @@
                                                         color: white;
                                                         background-color: black;"
                                                         title="DESCUENTO DE PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> % => <?php echo e($upe); ?>">
-                                                        DP: <?php echo e($dpe); ?> => <?php echo e($upe); ?>
+                                                        DP: <?php echo e(QuitarCerosDecimales($dpe)); ?> % => <?php echo e($upe); ?>
 
                                                     </div>
                                                 <?php else: ?>
@@ -4794,7 +4794,7 @@
                                                     background-color: #0061A8;
                                                     margin-right: 4px;"
                                                     title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                    <?php echo e($dpe); ?> %
+                                                    <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                 </span>
                                                 <span style="font-size: 10px;">
                                                     UP: 
@@ -5140,7 +5140,7 @@
                                                         background-color: #0061A8;
                                                         margin-right: 4px;"
                                                         title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                        <?php echo e($dpe); ?> %
+                                                        <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                     </span>
                                                     <span style="font-size: 10px;">
                                                         UP: 
@@ -5497,7 +5497,7 @@
                                                         background-color: #0061A8;
                                                         margin-right: 4px;"
                                                         title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                        <?php echo e($dpe); ?> %
+                                                        <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                     </span>
                                                     <span style="font-size: 10px;">
                                                         UP: 
@@ -5859,7 +5859,7 @@
                                                     background-color: #0061A8;
                                                     margin-right: 4px;"
                                                     title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                    <?php echo e($dpe); ?> %
+                                                    <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                 </span>
                                                 <span style="font-size: 10px;">
                                                     UP: 
@@ -6226,7 +6226,7 @@
                                                     background-color: #0061A8;
                                                     margin-right: 4px;"
                                                     title="DESCUENTO POR PRE-EMPAQUE: <?php echo e(QuitarCerosDecimales($dpe)); ?> %">
-                                                    <?php echo e($dpe); ?> %
+                                                    <?php echo e(QuitarCerosDecimales($dpe)); ?> %
                                                 </span>
                                                 <span style="font-size: 10px;">
                                                     UP: 

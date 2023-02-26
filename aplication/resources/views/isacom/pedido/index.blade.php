@@ -1,5 +1,5 @@
 @extends('layouts.menu')
-@section ('contenido') 
+@section ('contenido')
 @php
   $moneda = Session::get('moneda', 'BSS');
   $factor = RetornaFactorCambiario('', $moneda);
@@ -9,12 +9,12 @@
 <div class="row" style="margin-bottom: 5px;">
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 		<a href="{{url('/pedido/create')}}">
-			<button class="btn-normal" 
-				data-toggle="tooltip" 
+			<button class="btn-normal"
+				data-toggle="tooltip"
 				title="Pedido nuevo"
 				style="width: 120px;">
 				Pedido Nuevo
-			</button> 
+			</button>
 		</a>
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -48,40 +48,42 @@
 				</thead>
 				@foreach ($tabla as $t)
 				<tr>
-			
+
 					<td>{{$loop->iteration}}</td>
 					<td>
-						<!-- CONSULTA DE PEDIDO --> 
+						<!-- CONSULTA DE PEDIDO -->
                         <a href="{{URL::action('PedidoController@show',$t->id)}}">
                         	<button class="btn btn-pedido fa fa-file-o" data-toggle="tooltip" title="Consultar pedido">
                         	</button>
                         </a>
 
 						<!-- ELIMINAR PEDIDO -->
-						<a href="" 
-							data-target="#modal-delete-{{$t->id}}" 
+						<a href=""
+							data-target="#modal-delete-{{$t->id}}"
 							data-toggle="modal">
-							<button class="btn btn-pedido fa fa-trash-o" 
-								data-toggle="tooltip" 
+							<button class="btn btn-pedido fa fa-trash-o"
+								data-toggle="tooltip"
 								title="Eliminar pedido">
 							</button>
 						</a>
 
-						@if ($tipedido == 'N')
-							@if ($botonExportar)
+                        @if ($botonExportar)
+                            @if ($t->tipedido == 'N' )
 								<!-- EXPORTAR PEDIDO -->
 								<a href="{{URL::action('PedidoController@exportar',$t->id)}}">
-		                        	<button class="btn btn-pedido fa fa-share-square-o" data-toggle="tooltip" title="Exportar pedido">
+		                        	<button class="btn btn-pedido fa fa-share-square-o"
+                                        data-toggle="tooltip"
+                                        title="Exportar pedido">
 		                        	</button>
 		                        </a>
 	                        @endif
                         @endif
-                
-                        @if ($t->estado == 'NUEVO' || $t->estado == 'PARCIAL') 
+
+                        @if ($t->estado == 'NUEVO' || $t->estado == 'PARCIAL')
 							<!-- MODIFICAR PEDIDO -->
 							<a href="{{URL::action('PedidoController@edit',$t->id)}}">
-								<button class="btn btn-pedido fa fa-pencil" 
-									data-toggle="tooltip" 
+								<button class="btn btn-pedido fa fa-pencil"
+									data-toggle="tooltip"
 									title="Modificar pedido">
 								</button>
 							</a>
